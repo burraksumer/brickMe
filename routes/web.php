@@ -27,8 +27,4 @@ Route::view('/terms', 'legal.terms')->name('terms');
 Route::view('/privacy', 'legal.privacy')->name('privacy');
 Route::view('/refund', 'legal.refund')->name('refund');
 
-Route::get('/health', function () {
-    return response()->json(['status' => 'ok']);
-});
-
 require __DIR__.'/auth.php';

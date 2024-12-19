@@ -20,12 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if(config('app.env') === 'production') {
-            URL::forceScheme('https');
-            URL::forceRootUrl(config('app.url'));
-            
-            // Force secure cookies in production
-            config(['session.secure' => true]);
-        }
+        //
     }
 }
