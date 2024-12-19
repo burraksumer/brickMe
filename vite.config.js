@@ -10,7 +10,7 @@ export default defineConfig({
     ],
     server: {
         hmr: {
-            host: 'brickme.mulayim.app'
+            host: process.env.APP_ENV === 'local' ? 'localhost' : 'brickme.mulayim.app'
         }
     }
 });
