@@ -12,6 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->trustProxies(at: '*');
+        $middleware->alias([
+            'register.limit' => \App\Http\Middleware\RegisterRateLimit::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

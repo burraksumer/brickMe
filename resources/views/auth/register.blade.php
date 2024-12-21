@@ -12,6 +12,13 @@
                         >
                             @csrf
 
+                            @if (session('error'))
+                                <div
+                                    class="p-4 mb-6 text-red-700 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+
                             <!-- Name -->
                             <div>
                                 <x-input-label
