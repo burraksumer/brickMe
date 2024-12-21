@@ -89,6 +89,11 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script
+        defer
+        src="https://umami.mulayim.app/script.js"
+        data-website-id="c6b834bd-03f3-4ff4-b7ef-eeb44188210a"
+    ></script>
 
 </head>
 

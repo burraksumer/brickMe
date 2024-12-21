@@ -78,6 +78,11 @@
         href="{{ asset('img/favicons/favicon.ico') }}"
         rel="shortcut icon"
     >
+    <script
+        defer
+        src="https://umami.mulayim.app/script.js"
+        data-website-id="c6b834bd-03f3-4ff4-b7ef-eeb44188210a"
+    ></script>
 </head>
 
 <body class="font-sans antialiased">
