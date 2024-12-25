@@ -30,9 +30,9 @@ class LemonSqueezyEventListener
 
         // Add credits based on the package purchased
         $creditsToAdd = match ($variantId) {
-            env('LEMON_SQUEEZY_MINI_VARIANT_ID') => 15,    // Mini Maker: 15 credits
-            env('LEMON_SQUEEZY_STARTER_VARIANT_ID') => 35, // Starter: 35 credits
-            env('LEMON_SQUEEZY_PRO_VARIANT_ID') => 150,    // Pro: 150 credits
+            (int)env('LEMON_SQUEEZY_MINI_VARIANT_ID') => 15,    // Mini Maker: 15 credits
+            (int)env('LEMON_SQUEEZY_STARTER_VARIANT_ID') => 35, // Starter: 35 credits
+            (int)env('LEMON_SQUEEZY_PRO_VARIANT_ID') => 150,    // Pro: 150 credits
             default => 0,
         };
 
