@@ -20,11 +20,18 @@ class CheckoutController extends Controller
         
         try {
             $response = Http::get("https://ipapi.co/{$ip}/json/");
+            
+            Log::debug('IP geolocation response', [
+                'ip' => $ip,
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'headers' => $response->headers()
+            ]);
+
             if ($response->successful()) {
-                $data = $response->json();
                 $locationData = [
-                    'country' => $data['country'] ?? 'NL',
-                    'postal' => $data['postal'] ?? '',
+                    'country' => $response->json('country', 'NL'),
+                    'postal' => $response->json('postal', '')
                 ];
                 
                 Cache::put($cacheKey, $locationData, 604800);
@@ -32,11 +39,14 @@ class CheckoutController extends Controller
             }
             
             Log::info('IP geolocation defaulting to NL', [
-                'reason' => 'API request not successful'
+                'reason' => 'API request not successful',
+                'status_code' => $response->status(),
+                'response_body' => $response->body()
             ]);
         } catch (\Exception $e) {
-            Log::info('IP geolocation defaulting to NL', [
-                'reason' => 'API request failed'
+            Log::error('IP geolocation error', [
+                'reason' => 'API request failed',
+                'error' => $e->getMessage()
             ]);
         }
         
