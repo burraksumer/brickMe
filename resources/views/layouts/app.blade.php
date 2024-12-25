@@ -94,7 +94,7 @@
         src="https://umami.mulayim.app/script.js"
         data-website-id="c6b834bd-03f3-4ff4-b7ef-eeb44188210a"
     ></script>
-
+    @lemonJS
 </head>
 
 <body class="font-sans antialiased bg-[#1E2127]">

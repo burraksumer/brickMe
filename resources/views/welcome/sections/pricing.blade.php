@@ -73,9 +73,9 @@
                     <div class="mt-8">
                         <a
                             class="block px-8 py-3 w-full text-base font-semibold text-center text-gray-900 rounded-md bg-gold-400 hover:bg-gold-300"
-                            href="{{ route('register') }}"
+                            href="{{ auth()->check() ? route('checkout.mini-maker') : route('register') }}"
                         >
-                            Buy Now
+                            {{ auth()->check() ? 'Buy Now' : 'Register to Buy' }}
                         </a>
                     </div>
                 </div>
@@ -147,9 +147,9 @@
                     <div class="mt-8">
                         <a
                             class="block px-8 py-3 w-full text-base font-semibold text-center text-gray-900 rounded-md bg-gold-400 hover:bg-gold-300"
-                            href="{{ route('register') }}"
+                            href="{{ auth()->check() ? route('checkout.starter') : route('register') }}"
                         >
-                            Buy Now
+                            {{ auth()->check() ? 'Buy Now' : 'Register to Buy' }}
                         </a>
                     </div>
                 </div>
@@ -216,9 +216,9 @@
                     <div class="mt-8">
                         <a
                             class="block px-8 py-3 w-full text-base font-semibold text-center text-gray-900 rounded-md bg-gold-400 hover:bg-gold-300"
-                            href="{{ route('register') }}"
+                            href="{{ auth()->check() ? route('checkout.pro') : route('register') }}"
                         >
-                            Buy Now
+                            {{ auth()->check() ? 'Buy Now' : 'Register to Buy' }}
                         </a>
                     </div>
                 </div>

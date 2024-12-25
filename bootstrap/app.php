@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'register.limit' => \App\Http\Middleware\RegisterRateLimit::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            'lemon-squeezy/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
