@@ -72,4 +72,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(CreditTransaction::class);
     }
+
+    public function lemonSqueezyName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function lemonSqueezyEmail(): ?string
+    {
+        return $this->email;
+    }
 }

@@ -17,7 +17,7 @@
                         <h3 class="text-2xl font-semibold text-gray-100">Mini Maker</h3>
                         <p class="mt-4 text-gray-300">Perfect for trying out our service</p>
                         <p class="mt-8">
-                            <span class="text-4xl font-bold text-gray-100">$5</span>
+                            <span class="text-4xl font-bold text-gray-100">€5</span>
                         </p>
                         <ul class="mt-8 space-y-4">
                             <li class="flex items-center text-gray-300">
@@ -91,7 +91,7 @@
                         <h3 class="text-2xl font-semibold text-gray-100">Starter</h3>
                         <p class="mt-4 text-gray-300">Perfect for getting started</p>
                         <p class="mt-8">
-                            <span class="text-4xl font-bold text-gray-100">$9</span>
+                            <span class="text-4xl font-bold text-gray-100">€9</span>
                         </p>
                         <ul class="mt-8 space-y-4">
                             <li class="flex items-center text-gray-300">
@@ -160,7 +160,7 @@
                         <h3 class="text-2xl font-semibold text-gray-100">Pro</h3>
                         <p class="mt-4 text-gray-300">Best value for pros</p>
                         <p class="mt-8">
-                            <span class="text-4xl font-bold text-gray-100">$29</span>
+                            <span class="text-4xl font-bold text-gray-100">€29</span>
                         </p>
                         <ul class="mt-8 space-y-4">
                             <li class="flex items-center text-gray-300">
@@ -209,7 +209,7 @@
                                         />
                                     </svg>
                                 </div>
-                                <span class="ml-3">Best value per avatar (only $0.19 each)</span>
+                                <span class="ml-3">Best value per avatar (only €0.19 each)</span>
                             </li>
                         </ul>
                     </div>
