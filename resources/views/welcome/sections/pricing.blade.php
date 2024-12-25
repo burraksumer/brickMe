@@ -1,4 +1,7 @@
-<div class="w-full bg-[#1E2127]">
+<div
+    class="w-full bg-[#1E2127]"
+    id="pricing"
+>
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="py-24">
             <div class="text-center">

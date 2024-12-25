@@ -15,23 +15,11 @@ class CheckoutController extends Controller
         $cacheKey = "location_data_{$ip}";
         
         if (Cache::has($cacheKey)) {
-            $cachedData = Cache::get($cacheKey);
-            // Add browser console log for cached data
-            $logData = json_encode(['type' => 'cache_hit', 'data' => $cachedData]);
-            echo "<script>console.log('Location Data:', {$logData});</script>";
-            return $cachedData;
+            return Cache::get($cacheKey);
         }
         
         try {
             $response = Http::get("https://ipapi.co/{$ip}/json/");
-            
-            // Add browser console log for API response
-            $logData = json_encode([
-                'ip' => $ip,
-                'status' => $response->status(),
-                'body' => $response->json()
-            ]);
-            echo "<script>console.log('API Response:', {$logData});</script>";
 
             if ($response->successful()) {
                 $data = [
@@ -43,18 +31,18 @@ class CheckoutController extends Controller
                 return $data;
             }
             
-            // Log error to browser console
-            echo "<script>console.error('API request failed:', {$response->status()});</script>";
+            Log::info('IP geolocation API request failed', [
+                'status_code' => $response->status(),
+                'response' => $response->json()
+            ]);
             
         } catch (\Exception $e) {
-            // Log error to browser console
-            $errorMsg = json_encode($e->getMessage());
-            echo "<script>console.error('Geolocation error:', {$errorMsg});</script>";
+            Log::error('IP geolocation exception', [
+                'error' => $e->getMessage()
+            ]);
         }
         
-        $default = ['country' => 'NL', 'postal' => '']; 
-        Cache::put($cacheKey, $default, 604800);
-        return $default;
+        return ['country' => 'NL', 'postal' => '']; 
     }
 
     public function miniMaker(Request $request)

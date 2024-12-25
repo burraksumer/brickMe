@@ -32,7 +32,14 @@
                     >
                         @if (auth()->user()->credits <= 0)
                             <div class="p-4 mb-6 text-red-700 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
-                                You're out of credits! Please purchase more credits to continue generating avatars.
+                                You're out of credits!
+                                <a
+                                    class="underline hover:text-red-600 dark:hover:text-red-300"
+                                    href="{{ route('welcome') }}#pricing"
+                                >
+                                    Purchase more credits
+                                </a>
+                                to continue generating avatars.
                             </div>
                         @endif
 
