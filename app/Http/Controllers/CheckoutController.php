@@ -24,18 +24,17 @@ class CheckoutController extends Controller
             Log::debug('IP geolocation response', [
                 'ip' => $ip,
                 'status' => $response->status(),
-                'body' => $response->body(),
-                'headers' => $response->headers()
+                'body' => $response->body()
             ]);
 
             if ($response->successful()) {
-                $locationData = [
-                    'country' => $response->json('country', 'NL'),
-                    'postal' => $response->json('postal', '')
+                $data = [
+                    'country' => $response['country'] ?? 'NL',
+                    'postal' => $response['postal'] ?? ''
                 ];
                 
-                Cache::put($cacheKey, $locationData, 604800);
-                return $locationData;
+                Cache::put($cacheKey, $data, 604800);
+                return $data;
             }
             
             Log::info('IP geolocation defaulting to NL', [
