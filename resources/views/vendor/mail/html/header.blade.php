@@ -6,7 +6,7 @@
             style="display: inline-block;"
         >
             <img
-                src="{{ $message->embed(asset('img/logo.svg')) }}"
+                src="https://brickme.mulayim.app/img/logo.svg"
                 alt="{{ config('app.name') }}"
                 style="width: 100px; height: auto;"
             >
