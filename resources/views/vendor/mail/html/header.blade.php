@@ -6,7 +6,7 @@
             style="display: inline-block;"
         >
             <img
-                src="https://brickme.mulayim.app/img/logo.svg"
+                src="https://brickme.mulayim.app/img/logo.jpg"
                 alt="{{ config('app.name') }}"
                 style="width: 100px; height: auto;"
             >
