@@ -22,7 +22,7 @@ class AvatarController extends Controller
     public function generate(Request $request)
     {
         $request->validate([
-            'photo' => ['required', 'image', 'max:10240'] // 10MB max
+            'photo' => ['required', 'image', 'max:10240']
         ]);
 
         $user = auth()->user();
@@ -36,14 +36,14 @@ class AvatarController extends Controller
         $filename = time() . '_' . $photo->getClientOriginalName();
         
         // Create user directories if they don't exist
-        Storage::disk('public')->makeDirectory("photos/{$userId}");
-        Storage::disk('public')->makeDirectory("avatars/{$userId}");
+        Storage::disk('r2')->makeDirectory("photos/{$userId}");
+        Storage::disk('r2')->makeDirectory("avatars/{$userId}");
         
         // Store original photo
-        $originalPath = $photo->storeAs("photos/{$userId}", $filename, 'public');
+        $originalPath = $photo->storeAs("photos/{$userId}", $filename, 'r2');
         
-        // Get public URL for the original photo
-        $photoUrl = url(Storage::disk('public')->url($originalPath));
+        // Generate a temporary URL for Replicate
+        $photoUrl = Storage::disk('r2')->temporaryUrl($originalPath, now()->addMinutes(5));
         
         try {
             // First, get the caption using BLIP-3
@@ -89,7 +89,7 @@ class AvatarController extends Controller
                 // Download the generated avatar
                 $avatarContent = file_get_contents($output[0]);
                 $avatarPath = "avatars/{$userId}/{$filename}";
-                Storage::disk('public')->put($avatarPath, $avatarContent);
+                Storage::disk('r2')->put($avatarPath, $avatarContent);
 
                 if (!$user->deductCredit()) {
                     return redirect()->back()
@@ -127,11 +127,12 @@ class AvatarController extends Controller
             abort(403);
         }
 
-        if (!Storage::disk('public')->exists($path)) {
+        if (!Storage::disk('r2')->exists($path)) {
             abort(404);
         }
 
-        return response()->file(Storage::disk('public')->path($path));
+        // Generate a temporary URL valid for 5 minutes
+        return redirect(Storage::disk('r2')->temporaryUrl($path, now()->addMinutes(5)));
     }
 
     public function gallery()
@@ -139,11 +140,11 @@ class AvatarController extends Controller
         $userId = auth()->id();
         $directory = "avatars/{$userId}";
         
-        if (!Storage::disk('public')->exists($directory)) {
+        if (!Storage::disk('r2')->exists($directory)) {
             return view('avatars.gallery', ['avatars' => collect()]);
         }
         
-        $files = Storage::disk('public')->files($directory);
+        $files = Storage::disk('r2')->files($directory);
         if (empty($files)) {
             return view('avatars.gallery', ['avatars' => collect()]);
         }
@@ -153,7 +154,7 @@ class AvatarController extends Controller
                 return [
                     'avatar' => route('avatar.show', ['path' => $path]),
                     'original' => route('avatar.show', ['path' => str_replace('avatars', 'photos', $path)]),
-                    'created_at' => Storage::disk('public')->lastModified($path),
+                    'created_at' => Storage::disk('r2')->lastModified($path),
                 ];
             })
             ->sortByDesc('created_at')

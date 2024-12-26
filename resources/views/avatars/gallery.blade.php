@@ -31,7 +31,24 @@
                                                 <a
                                                     class="text-sm text-gold-500 hover:text-gold-400"
                                                     href="{{ $avatar['avatar'] }}"
-                                                    download="lego-avatar.png"
+                                                    x-data="{
+                                                        download() {
+                                                            fetch(this.$el.href)
+                                                                .then(response => response.blob())
+                                                                .then(blob => {
+                                                                    const url = window.URL.createObjectURL(blob);
+                                                                    const link = document.createElement('a');
+                                                                    link.href = url;
+                                                                    link.download = 'lego-avatar.png';
+                                                                    document.body.appendChild(link);
+                                                                    link.click();
+                                                                    document.body.removeChild(link);
+                                                                    window.URL.revokeObjectURL(url);
+                                                                })
+                                                                .catch(error => console.error('Download failed:', error));
+                                                        }
+                                                    }"
+                                                    @click.prevent="download"
                                                 >
                                                     Download
                                                 </a>
